@@ -1,8 +1,4 @@
-"use client"; // Necesario para la interactividad y navegación 
-import React from 'react';
-
 export default function Home() {
-  // Datos de Servicios (Ubicados en public/servicios/) [cite: 11]
   const servicios = [
     { nombre: "Mantenimiento Preventivo", precio: "L. 500", img: "/servicios/mantenimiento.jpg", desc: "Limpieza profunda y cambio de pasta térmica." },
     { nombre: "Revisión General", precio: "L. 300", img: "/servicios/diagnostico.jpg", desc: "Diagnóstico completo de hardware y software." },
@@ -10,7 +6,6 @@ export default function Home() {
     { nombre: "Reparaciones Variadas", precio: "Cotizar", img: "/servicios/reparacion.jpg", desc: "Cambio de pantallas, teclados y soldaduras." }
   ];
 
-  // Datos de Productos (Ubicados en public/Productos/) [cite: 19]
   const inventario = [
     { cat: "Mochilas", nombre: "Mochila Laptop Pro Azul", precio: "L. 1,150", img: "/Productos/mochila_azul.jpg" },
     { cat: "Mochilas", nombre: "Mochila Ejecutiva Negra", precio: "L. 1,250", img: "/Productos/mochila_negra.jpg" },
@@ -23,22 +18,16 @@ export default function Home() {
     { cat: "Teclados", nombre: "Teclado Mecánico Gaming RGB", precio: "L. 1,550", img: "/Productos/teclado_mecanico.jpg" },
   ];
 
-  // Función para contactar vía WhatsApp 
-  const contactar = (item: string) => {
-    const msg = encodeURIComponent(`Hola SOPORTECK HN, me interesa: ${item}`);
-    window.open(`https://wa.me/50487505896?text=${msg}`, '_blank');
-  };
+  const whatsappHref = (item: string) =>
+    `https://wa.me/50487505896?text=${encodeURIComponent(`Hola SOPORTECK HN, me interesa: ${item}`)}`;
 
   return (
     <div className="min-h-screen bg-black text-white font-sans scroll-smooth">
-      {/* =========================================
-           HEADER (Navegación y Contacto Superior)
-         ========================================= */}
       <header className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md z-50 border-b border-zinc-800">
         <nav className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-black text-blue-500 tracking-tighter uppercase">SOPORTECK HN</h1>
-            <p className="text-[10px] text-zinc-500 font-mono">UTHLand Demo Grupo 1 - Next.js [cite: 51]</p>
+            <p className="text-[10px] text-zinc-500 font-mono">Soporte técnico y periféricos en Honduras</p>
           </div>
           <div className="flex items-center gap-8 text-sm font-medium">
             <a href="#servicios" className="hover:text-blue-500 transition-colors">Servicios</a>
@@ -46,32 +35,29 @@ export default function Home() {
             <a href="#contacto" className="hover:text-blue-400 transition-colors">Contacto</a>
             <div className="hidden md:flex items-center gap-4 border-l border-zinc-700 pl-8">
               <span className="text-zinc-400">Tel: <span className="text-white">8750-5896</span></span>
-              <button 
-                onClick={() => contactar('Asesoría Técnica')}
+              <a
+                href={whatsappHref("Asesoría Técnica")}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-blue-600 hover:bg-white hover:text-black text-white px-5 py-2 rounded-full text-xs font-bold transition-all"
               >
                 Asesoría Urgente
-              </button>
+              </a>
             </div>
           </div>
         </nav>
       </header>
 
-      {/* Espaciado para compensar el header fijo */}
       <main className="pt-32 max-w-7xl mx-auto px-8 pb-20 space-y-32">
-        
-        {/* =========================================
-             SECCIÓN 1: SERVICIOS (Color Original)
-           ========================================= */}
-        <section id="servicios">
+        <section id="servicios" aria-labelledby="titulo-servicios">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-blue-500 mb-4 tracking-tight">SERVICIOS TÉCNICOS</h2>
+            <h2 id="titulo-servicios" className="text-4xl font-extrabold text-blue-500 mb-4 tracking-tight">SERVICIOS TÉCNICOS</h2>
             <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {servicios.map((s, i) => (
-              <div key={i} className="group border border-zinc-800 rounded-3xl overflow-hidden bg-zinc-900/20 hover:border-blue-500 transition-all duration-300">
+            {servicios.map((s) => (
+              <article key={s.nombre} className="group border border-zinc-800 rounded-3xl overflow-hidden bg-zinc-900/20 hover:border-blue-500 transition-all duration-300">
                 <img src={s.img} alt={s.nombre} className="w-full h-60 object-cover" />
                 <div className="p-8">
                   <div className="flex justify-between items-center mb-4">
@@ -79,51 +65,49 @@ export default function Home() {
                     <span className="bg-blue-900/50 text-blue-400 px-4 py-1 rounded-full text-sm font-bold border border-blue-800">{s.precio}</span>
                   </div>
                   <p className="text-zinc-400 leading-relaxed mb-6">{s.desc}</p>
-                  <button 
-                    onClick={() => contactar(s.nombre)}
+                  <a
+                    href={whatsappHref(s.nombre)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-blue-500 font-bold hover:text-white transition-colors flex items-center gap-2"
                   >
                     Solicitar Servicio →
-                  </button>
+                  </a>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* =========================================
-             SECCIÓN 2: PRODUCTOS (Color Original)
-           ========================================= */}
-        <section id="productos">
+        <section id="productos" aria-labelledby="titulo-productos">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-black text-purple-500 mb-4 tracking-widest uppercase">CATÁLOGO GAMING</h2>
+            <h2 id="titulo-productos" className="text-5xl font-black text-purple-500 mb-4 tracking-widest uppercase">CATÁLOGO GAMING</h2>
             <div className="h-1 w-32 bg-purple-600 mx-auto rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {inventario.map((p, i) => (
-              <div key={i} className="border border-zinc-800 rounded-3xl overflow-hidden bg-transparent hover:border-purple-500 hover:scale-[1.02] transition-all duration-300 group">
+            {inventario.map((p) => (
+              <article key={p.nombre} className="border border-zinc-800 rounded-3xl overflow-hidden bg-transparent hover:border-purple-500 hover:scale-[1.02] transition-all duration-300 group">
                 <img src={p.img} alt={p.nombre} className="w-full h-72 object-cover" />
                 <div className="p-6">
                   <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">{p.cat}</span>
                   <h3 className="text-xl font-bold mt-2 h-14 leading-tight group-hover:text-purple-400 transition-colors">{p.nombre}</h3>
                   <p className="text-purple-500 text-3xl font-black mt-4">{p.precio}</p>
-                  <button 
-                    onClick={() => contactar(p.nombre)}
-                    className="w-full mt-6 bg-purple-600 hover:bg-white hover:text-black text-white py-4 rounded-2xl font-black transition-all shadow-lg shadow-purple-900/20"
+                  <a
+                    href={whatsappHref(p.nombre)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full mt-6 bg-purple-600 hover:bg-white hover:text-black text-white py-4 rounded-2xl font-black transition-all shadow-lg shadow-purple-900/20 text-center"
                   >
                     COMPRAR POR WHATSAPP
-                  </button>
+                  </a>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
       </main>
 
-      {/* =========================================
-           FOOTER (Contactos Finales y Redes)
-         ========================================= */}
       <footer id="contacto" className="bg-zinc-950 border-t border-zinc-800">
         <div className="max-w-7xl mx-auto px-8 py-20 grid grid-cols-1 md:grid-cols-3 gap-16">
           <div className="space-y-6">
@@ -134,11 +118,11 @@ export default function Home() {
             <div className="space-y-2 text-sm">
               <p className="flex items-center gap-3">
                 <span className="text-blue-500 font-bold">WhatsApp:</span> 
-                <a href="https://wa.me/50487505896" className="hover:text-white transition-colors">8750-5896</a>
+                <a href="https://wa.me/50487505896" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">8750-5896</a>
               </p>
               <p className="flex items-center gap-3">
                 <span className="text-blue-500 font-bold">Email:</span> 
-                <span className="text-zinc-400">ventas@soporteckhn.com</span>
+                <a href="mailto:ventas@soporteckhn.com" className="text-zinc-400 hover:text-white transition-colors">ventas@soporteckhn.com</a>
               </p>
             </div>
           </div>
@@ -155,15 +139,15 @@ export default function Home() {
           <div className="space-y-6">
             <h4 className="text-white font-bold uppercase tracking-widest text-sm italic">Nuestras Redes</h4>
             <div className="flex flex-col gap-4 text-sm">
-              <a href="#" className="group flex items-center gap-3 text-zinc-500 hover:text-blue-500 transition-colors">
+              <a href="https://facebook.com/soporteckhn" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-zinc-500 hover:text-blue-500 transition-colors">
                 <span className="bg-zinc-900 p-2 rounded-lg group-hover:bg-blue-500/10 tracking-tighter">FB</span>
                 facebook.com/soporteckhn
               </a>
-              <a href="#" className="group flex items-center gap-3 text-zinc-500 hover:text-purple-500 transition-colors">
+              <a href="https://instagram.com/soporteckhn_gaming" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-zinc-500 hover:text-purple-500 transition-colors">
                 <span className="bg-zinc-900 p-2 rounded-lg group-hover:bg-purple-500/10 tracking-tighter">IG</span>
                 @soporteckhn_gaming
               </a>
-              <a href="#" className="group flex items-center gap-3 text-zinc-500 hover:text-white transition-colors">
+              <a href="https://tiktok.com/@soporteck_tecnico" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-zinc-500 hover:text-white transition-colors">
                 <span className="bg-zinc-900 p-2 rounded-lg group-hover:bg-white/10 tracking-tighter">TK</span>
                 @soporteck_tecnico
               </a>
@@ -172,7 +156,7 @@ export default function Home() {
         </div>
         
         <div className="text-center py-8 border-t border-zinc-900 text-[10px] text-zinc-600 uppercase tracking-widest">
-          Desarrollado con Next.js 19 para Programación Web 2 [cite: 5, 51] • © 2026 SOPORTECK HN
+          Desarrollado con Next.js 19 • UTH © 2026 Programación Web II
         </div>
       </footer>
     </div>
