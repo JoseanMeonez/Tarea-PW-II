@@ -26,7 +26,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md z-50 border-b border-zinc-800">
         <nav className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-black text-blue-500 tracking-tighter uppercase">SOPORTECK HN</h1>
+            <h1 className="text-3xl font-black text-blue-500 tracking-tighter uppercase">SOPORTECK HN TEST</h1>
             <p className="text-[10px] text-zinc-500 font-mono">Soporte técnico y periféricos en Honduras</p>
           </div>
           <div className="flex items-center gap-8 text-sm font-medium">
